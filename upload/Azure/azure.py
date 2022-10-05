@@ -8,11 +8,13 @@ import datetime
 #################################BACKUP#############################################
 ######################################################################################
 
-class backup:
-    def __init__(self) -> None:
-        self.connect_string = 'your connection string'
-        self.container_name = 'container name'
-        self.path = 'path to upload from'
+class Azure_Backup:
+    def __init__(self, connection_string, container_name, upload_path) -> None:
+        self.connect_string = connection_string #'your connection string'
+        self.container_name = container_name #'container name'
+        self.path = upload_path #'path to upload from'
+        
+        
     def get_files(self, dir):
         with os.scandir(dir) as entries:
             for entry in entries:
@@ -80,11 +82,11 @@ class backup:
 #################################recovery#############################################
 ######################################################################################
 
-class recovery:
-    def __init__(self):
-        self.file_path = 'your file path'
-        self.connect_str = 'your azure connection string'
-        self.container_name = 'container name'
+class Azure_Recovery:
+    def __init__(self, connection_string, container_name, restore_path):
+        self.file_path = restore_path #'your folder path'
+        self.connect_str = connection_string #'your azure connection string'
+        self.container_name = container_name #'container name'
         pass
     def restore(self, path,connect_str,container_name):
         print("\nListing blobs...")
@@ -108,7 +110,8 @@ class recovery:
         except Exception as e:
             print('there was an error with the connection')
 
-#recovery() #works 
+            
+backup = Azure_Backup('connection sring', 'blob name', 'upload path').run()
+recover = Azure_Recovery('connection sring', 'blob name', 'upload path').run()
 
-#backup()
-#this is fully functional now and can be attached to the tkiunter app 
+#this is fully functional now and can be attached to a tkinter app 
