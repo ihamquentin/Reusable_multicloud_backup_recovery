@@ -11,7 +11,7 @@ import os
 #################################UPLOAD#############################################
 ######################################################################################
 
-class Gcp_backup:
+class Gcs_backup:
     def __init__(self, keypath, bucketName, uploadPath) -> None:
         GOOGLE_APPLICATION_CREDENTIALS = open(keypath, 'r') #replace with file path to the json
         gcp_json_credentials_dict = json.loads(GOOGLE_APPLICATION_CREDENTIALS.read())
@@ -91,7 +91,7 @@ class Gcp_backup:
 
 
 
-class Restore:
+class Gcs_Restore:
     def __init__(self, keypath, bucketName, recoverTo) -> None:
         GOOGLE_APPLICATION_CREDENTIALS = open(keypath, 'r') #replace with file path to the json
         gcp_json_credentials_dict = json.loads(GOOGLE_APPLICATION_CREDENTIALS.read())
@@ -122,6 +122,5 @@ class Restore:
     #recovery('aa', client, 'me3g47')
 
 
-
-#backup()
-#Restore()
+backup = Gcs_backup('systempath to key', 'bucketname', 'path to backup from').run()
+restore = Gcs_Restore('systempath to key', 'bucketname', 'path to restore to').run()
